@@ -164,8 +164,21 @@ int cj_2enters::partition(int A[], int low, int high){
 }
 
 void cj_2enters::unir(const cj_2enters& B){
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
+
+    pair<int, int> aux;
+    pair<int, int> current;
+    for (int i = 0; i <= this->getSize() -1; i++)
+    {
+        aux.first = B.getConjunt()[i];
+        aux.second = B.getConjunt()[i+1];
+        current.first = A.getConjunt()[i];
+        current.second = A.getConjunt()[i+1];
+        if (A[i] < aux.first || (A[i] == aux.first && A[i + 1] <= aux.second)){
+                
+        }
+        
+    }
+        
 }
 void cj_2enters::intersectar(const cj_2enters& B){
     cj_2enters* aux = new cj_2enters(B);
@@ -193,15 +206,38 @@ cj_2enters cj_2enters::operator-(const cj_2enters& B) const{
 }
 
 bool cj_2enters::operator==(const cj_2enters& B) const{
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-    return 0;
+
+    if (this->getSize() != B.getSize()) {
+        return false;
+    }    
+
+    for (int i = 0; i < this->getSize() -1; i++) {
+        if (this->A[i] != B.getConjunt()[i]) return false;
+    }
+
+    return true;
+
 }
 bool cj_2enters::operator!=(const cj_2enters& B) const{
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-    return 0;
+        if (this->getSize() != B.getSize()) {
+        return true;
+    }    
+
+    for (int i = 0; i < this->getSize() -1; i++) {
+        if (this->A[i] != B.getConjunt()[i]) return true;
+    }
+
+    return false;
     
+}
+
+int cj_2enters::getSize() const {
+    return this->size;
+}
+
+int* cj_2enters::getConjunt() const {
+    return this->A;
+
 }
 
 // quicksort estandar sin conjuntos - apuntes
