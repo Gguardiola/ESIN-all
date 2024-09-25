@@ -1,0 +1,12 @@
+static const int MAXSIZE = 10000;
+
+int size = 0;
+int totalCard = 0;
+mutable int A[MAXSIZE];
+
+void quicksort(int A[], int low, int high);
+int partition(int A[], int low, int high);
+void quicksortWrapper();
+void printArray(int A[], int size) const;
+int getSize() const;
+int* getConjunt() const;
