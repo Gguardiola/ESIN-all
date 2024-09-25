@@ -163,23 +163,52 @@ int cj_2enters::partition(int A[], int low, int high){
     
 }
 
-void cj_2enters::unir(const cj_2enters& B){
+void cj_2enters::unir(const cj_2enters& B) {
+    int aIterator = 0;   
+    int bIterator = 0;   
 
-    pair<int, int> aux;
-    pair<int, int> current;
-    for (int i = 0; i <= this->getSize() -1; i++)
-    {
-        aux.first = B.getConjunt()[i];
-        aux.second = B.getConjunt()[i+1];
-        current.first = A.getConjunt()[i];
-        current.second = A.getConjunt()[i+1];
-        if (A[i] < aux.first || (A[i] == aux.first && A[i + 1] <= aux.second)){
-                
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+            pair<int, int> currentA;
+            if (aIterator < this->size) {
+                currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+            } else {
+                currentA = pair<int, int>(INT_MAX, INT_MAX);
+            }
+
+            pair<int, int> currentB;
+            if (bIterator < B.getSize()) {
+                currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+            } else {
+                currentB = pair<int, int>(INT_MAX, INT_MAX);
+            }
+
+        if (currentA < currentB) {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
         }
-        
+        else if (currentB < currentA) {
+            temp[tempSize++] = currentB.first;
+            temp[tempSize++] = currentB.second;
+            bIterator += 2;
+        }
+        else {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+            bIterator += 2;
+        }
     }
-        
+
+    for (int i = 0; i < tempSize; ++i) {
+        A[i] = temp[i];
+    }
+    this->size = tempSize;
 }
+        
 void cj_2enters::intersectar(const cj_2enters& B){
     cj_2enters* aux = new cj_2enters(B);
     cout<<2<<aux->card();

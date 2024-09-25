@@ -1,5 +1,5 @@
 static const int MAXSIZE = 10000;
-
+static const int INT_MAX = 2147483647; 
 int size = 0;
 int totalCard = 0;
 mutable int A[MAXSIZE];
