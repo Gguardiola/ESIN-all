@@ -3,3 +3,8 @@ tar cvf soluction_primer_joc_estatica.tar conjunt_2enters.rep conjunt_2enters.cp
 diff out sample-1.cor
 make && echo "--------------------------------------" && ./program.exe
 cat cua.hpp cua.t main.cpp | sed '/include "cua./d' > solucio.cpp
+
+cat solucio.cpp main.cc > tot.cc
+g++ -O0 -g -Wall -Wextra -Werror -o tot.exe tot.cc
+./tot.exe < sample01.inp
+./tot.exe < sample01.inp | diff - sample01.cor
