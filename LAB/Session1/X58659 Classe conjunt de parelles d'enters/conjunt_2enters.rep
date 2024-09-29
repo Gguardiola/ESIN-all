@@ -1,4 +1,4 @@
-static const int MAXSIZE = 10000;
+static const int MAXSIZE = 8009000;
 static const int INT_MAX = 2147483647; 
 int size = 0;
 int totalCard = 0;
@@ -10,3 +10,4 @@ void quicksortWrapper();
 void printArray(int A[], int size) const;
 int getSize() const;
 int* getConjunt() const;
+void setConjunt(const int B[], int newSize);

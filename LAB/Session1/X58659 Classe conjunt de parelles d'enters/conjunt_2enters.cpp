@@ -120,6 +120,307 @@ void cj_2enters::print(ostream& os) const{
 
 }
 
+
+
+void cj_2enters::unir(const cj_2enters& B) {
+    int aIterator = 0;   
+    int bIterator = 0;   
+
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+        pair<int, int> currentA;
+        if (aIterator < this->size) {
+            currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+        } else {
+            currentA = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        pair<int, int> currentB;
+        if (bIterator < B.getSize()) {
+            currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+        } else {
+            currentB = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        if (currentA < currentB) {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+        }
+        else if (currentB < currentA) {
+            temp[tempSize++] = currentB.first;
+            temp[tempSize++] = currentB.second;
+            bIterator += 2;
+        }
+        else {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+            bIterator += 2;
+        }
+    }
+
+    for (int i = 0; i < tempSize; ++i) {
+        A[i] = temp[i];
+    }
+    this->size = tempSize;
+}
+
+
+void cj_2enters::intersectar(const cj_2enters& B){
+    int aIterator = 0;   
+    int bIterator = 0;   
+
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+        pair<int, int> currentA;
+        if (aIterator < this->size) {
+            currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+        } else {
+            currentA = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        pair<int, int> currentB;
+        if (bIterator < B.getSize()) {
+            currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+        } else {
+            currentB = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        if (currentA < currentB) {
+            aIterator += 2;
+        }
+        else if (currentB == currentA) {
+            temp[tempSize++] = currentB.first;
+            temp[tempSize++] = currentB.second;
+            aIterator += 2;
+            bIterator += 2;
+        } else {
+            bIterator += 2;
+        }
+    }
+
+    for (int i = 0; i < tempSize; ++i) {
+        A[i] = temp[i];
+    }
+    this->size = tempSize;
+}
+void cj_2enters::restar(const cj_2enters& B){
+    int aIterator = 0;   
+    int bIterator = 0;   
+
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+        pair<int, int> currentA;
+        if (aIterator < this->size) {
+            currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+        } else {
+            break;
+        }
+
+        pair<int, int> currentB;
+        if (bIterator < B.getSize()) {
+            currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+        } else {
+            currentB = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        if (currentA < currentB) {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+        }
+        else if (currentA == currentB) {
+            aIterator += 2;
+            bIterator += 2;
+        }
+        else {
+            bIterator += 2;
+        }
+    }
+
+    for (int i = 0; i < tempSize; ++i) {
+        A[i] = temp[i];
+    }
+    this->size = tempSize;
+}
+
+cj_2enters cj_2enters::operator+(const cj_2enters& B) const{
+    int aIterator = 0;   
+    int bIterator = 0;   
+
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+        pair<int, int> currentA;
+        if (aIterator < this->size) {
+            currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+        } else {
+            currentA = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        pair<int, int> currentB;
+        if (bIterator < B.getSize()) {
+            currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+        } else {
+            currentB = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        if (currentA < currentB) {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+        }
+        else if (currentB < currentA) {
+            temp[tempSize++] = currentB.first;
+            temp[tempSize++] = currentB.second;
+            bIterator += 2;
+        }
+        else {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+            bIterator += 2;
+        }
+    }
+
+    cj_2enters newConjunt;
+    newConjunt.setConjunt(temp, tempSize);        
+    return newConjunt;
+}
+
+cj_2enters cj_2enters::operator*(const cj_2enters& B) const{
+    int aIterator = 0;   
+    int bIterator = 0;   
+
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+        pair<int, int> currentA;
+        if (aIterator < this->size) {
+            currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+        } else {
+            currentA = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        pair<int, int> currentB;
+        if (bIterator < B.getSize()) {
+            currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+        } else {
+            currentB = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        if (currentA < currentB) {
+            aIterator += 2;
+        }
+        else if (currentB == currentA) {
+            temp[tempSize++] = currentB.first;
+            temp[tempSize++] = currentB.second;
+            aIterator += 2;
+            bIterator += 2;
+        } else {
+            bIterator += 2;
+        }
+    }
+
+    cj_2enters newConjunt;
+    newConjunt.setConjunt(temp, tempSize);        
+    return newConjunt;
+
+}
+cj_2enters cj_2enters::operator-(const cj_2enters& B) const {
+    int aIterator = 0;   
+    int bIterator = 0;   
+
+    int temp[MAXSIZE];
+    int tempSize = 0;
+
+    while (aIterator < this->size || bIterator < B.getSize()) {
+        pair<int, int> currentA;
+        if (aIterator < this->size) {
+            currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
+        } else {
+            break;
+        }
+
+        pair<int, int> currentB;
+        if (bIterator < B.getSize()) {
+            currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
+        } else {
+            currentB = pair<int, int>(INT_MAX, INT_MAX);
+        }
+
+        if (currentA < currentB) {
+            temp[tempSize++] = currentA.first;
+            temp[tempSize++] = currentA.second;
+            aIterator += 2;
+        }
+        else if (currentA == currentB) {
+            aIterator += 2;
+            bIterator += 2;
+        }
+        else {
+            bIterator += 2;
+        }
+    }
+    cj_2enters newConjunt;
+    newConjunt.setConjunt(temp, tempSize);        
+    return newConjunt;
+}
+
+
+
+bool cj_2enters::operator==(const cj_2enters& B) const{
+
+    if (this->getSize() != B.getSize()) {
+        return false;
+    }    
+
+    for (int i = 0; i < this->getSize() -1; i++) {
+        if (this->A[i] != B.getConjunt()[i]) return false;
+    }
+
+    return true;
+
+}
+bool cj_2enters::operator!=(const cj_2enters& B) const{
+        if (this->getSize() != B.getSize()) {
+        return true;
+    }    
+
+    for (int i = 0; i < this->getSize() -1; i++) {
+        if (this->A[i] != B.getConjunt()[i]) return true;
+    }
+
+    return false;
+    
+}
+
+int cj_2enters::getSize() const {
+    return this->size;
+}
+
+int* cj_2enters::getConjunt() const {
+    return this->A;
+
+}
+
+void cj_2enters::setConjunt(const int B[], int newSize) {
+    for(int i = 0; i < newSize; i++){
+        this->A[i] = B[i];
+    }
+    this->size = newSize;
+    this->totalCard = newSize / 2;
+}
+
 void cj_2enters::quicksortWrapper() {
     this->quicksort(this->A, 0, this->size-2);
 }
@@ -161,112 +462,6 @@ int cj_2enters::partition(int A[], int low, int high){
 
     return i;
     
-}
-
-void cj_2enters::unir(const cj_2enters& B) {
-    int aIterator = 0;   
-    int bIterator = 0;   
-
-    int temp[MAXSIZE];
-    int tempSize = 0;
-
-    while (aIterator < this->size || bIterator < B.getSize()) {
-            pair<int, int> currentA;
-            if (aIterator < this->size) {
-                currentA = pair<int, int>(A[aIterator], A[aIterator + 1]);
-            } else {
-                currentA = pair<int, int>(INT_MAX, INT_MAX);
-            }
-
-            pair<int, int> currentB;
-            if (bIterator < B.getSize()) {
-                currentB = pair<int, int>(B.getConjunt()[bIterator], B.getConjunt()[bIterator + 1]);
-            } else {
-                currentB = pair<int, int>(INT_MAX, INT_MAX);
-            }
-
-        if (currentA < currentB) {
-            temp[tempSize++] = currentA.first;
-            temp[tempSize++] = currentA.second;
-            aIterator += 2;
-        }
-        else if (currentB < currentA) {
-            temp[tempSize++] = currentB.first;
-            temp[tempSize++] = currentB.second;
-            bIterator += 2;
-        }
-        else {
-            temp[tempSize++] = currentA.first;
-            temp[tempSize++] = currentA.second;
-            aIterator += 2;
-            bIterator += 2;
-        }
-    }
-
-    for (int i = 0; i < tempSize; ++i) {
-        A[i] = temp[i];
-    }
-    this->size = tempSize;
-}
-        
-void cj_2enters::intersectar(const cj_2enters& B){
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-}
-void cj_2enters::restar(const cj_2enters& B){
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-}
-
-cj_2enters cj_2enters::operator+(const cj_2enters& B) const{
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-    return B;
-}
-cj_2enters cj_2enters::operator*(const cj_2enters& B) const{
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-    return B;
-}
-cj_2enters cj_2enters::operator-(const cj_2enters& B) const{
-    cj_2enters* aux = new cj_2enters(B);
-    cout<<2<<aux->card();
-    return B;
-}
-
-bool cj_2enters::operator==(const cj_2enters& B) const{
-
-    if (this->getSize() != B.getSize()) {
-        return false;
-    }    
-
-    for (int i = 0; i < this->getSize() -1; i++) {
-        if (this->A[i] != B.getConjunt()[i]) return false;
-    }
-
-    return true;
-
-}
-bool cj_2enters::operator!=(const cj_2enters& B) const{
-        if (this->getSize() != B.getSize()) {
-        return true;
-    }    
-
-    for (int i = 0; i < this->getSize() -1; i++) {
-        if (this->A[i] != B.getConjunt()[i]) return true;
-    }
-
-    return false;
-    
-}
-
-int cj_2enters::getSize() const {
-    return this->size;
-}
-
-int* cj_2enters::getConjunt() const {
-    return this->A;
-
 }
 
 // quicksort estandar sin conjuntos - apuntes
