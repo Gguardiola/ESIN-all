@@ -40,7 +40,46 @@ class pila { // pila en memòria dinàmica
 // Aquí va la implementació del mètode públic fusiona i privats addicionals
 template <typename T>
 void pila<T>::fusiona(const pila<T> &p2) {
-  vector<int> temp1 = {1,2,3,4,5,6};
-  pila<int> newPila(temp1);
-  newPila._cim = p2._cim;
+
+  node *p = _cim;
+  node *pant = nullptr;
+  node *paux = p2._cim;
+  //
+  // pant 1
+  // 1 2 2 3 4 5
+  // 2 4
+  while(paux != nullptr) {
+    if(paux->info >= p->info) {
+      node *pnew = new node;
+      if(pant == nullptr) _cim = pnew;
+      pant = p;
+      pnew->seg = p->seg;
+      p->seg = pnew;
+      pnew->info = paux->info;
+    }
+
+    paux = paux->seg;
+    p = p->seg;
+  }
+
+  _mida = _mida + p2._mida;
+
 }
+
+// cj_2enters::cj_2enters(const cj_2enters &cj) {
+//   _size = cj._size;
+//   _first = nullptr;
+//   node *pc2 = cj_first, *pc1=nullptr;
+//   while(pc2 !=nullptr) {
+//     node *pn = new node;
+//     pn->info = pc2->info;
+//     pn->next = nullptr;
+//     if(pc1 == nullptr) _first = pn;
+//     else                pc1->next = pn;
+
+//     pc1 = pn;
+//     pc2 = pc2->next;
+//   }
+
+//   _last = pc1;
+// }
