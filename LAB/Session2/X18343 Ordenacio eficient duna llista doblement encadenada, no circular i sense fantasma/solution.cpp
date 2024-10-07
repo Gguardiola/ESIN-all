@@ -30,36 +30,34 @@ private:
 
 void Llista::ordena() {
     // Coste temporal: O(n log n)
-    // Raonament: El Merge Sort divideix la llista en dues meitats, ordena cadascuna recursivament
-    // i les fusiona. Cada divisió és O(log n) i la fusió és O(n), resultant en O(n log n) en total.
+    // Si la lista está vacía o tiene un solo elemento, ya está ordenada
+    if (_prim == nullptr || _prim->seg == nullptr) return;
 
-    if (_prim == nullptr || _prim->seg == nullptr) return; // Si la lista está vacía o tiene un solo elemento
+    // Divide la lista en dos mitades usando el método de dos punteros
+    node* lento = _prim;
+    node* rapido = _prim->seg;
 
-    // Divide la lista en dos mitades
-    node* meio = _prim;
-    node* final = _prim;
-
-    // Utilizamos el método de dos punteros para encontrar el medio
-    while (final != nullptr && final->seg != nullptr) {
-        meio = meio->seg;
-        final = final->seg->seg;
+    // Encontrar el punto medio de la lista
+    while (rapido != nullptr && rapido->seg != nullptr) {
+        lento = lento->seg;
+        rapido = rapido->seg->seg;
     }
 
-    // `meio` es el punto medio de la lista
-    node* mitad = meio->seg; // Guardamos la segunda mitad
-    meio->seg = nullptr; // Romper la lista en dos mitades
+    // `lento` ahora es el punto medio de la lista
+    node* mitad = lento->seg; // Segunda mitad de la lista
+    if (mitad != nullptr) {
+        mitad->ant = nullptr;  // Desconectar la primera mitad de la segunda
+    }
+    lento->seg = nullptr;     // Desconectar la primera mitad
 
     // Crear dos listas para las mitades
     Llista primeraMitad;
     primeraMitad._prim = _prim; // Primera mitad
-    primeraMitad._ult = meio;
-    primeraMitad._long = longitud() / 2;
+    primeraMitad._ult = lento;
+    primeraMitad._long = _long / 2;
 
     Llista segundaMitad;
     segundaMitad._prim = mitad; // Segunda mitad
-    if (mitad) {
-        mitad->ant = nullptr; // Asegurarse de que el puntero anterior de la segunda mitad sea nulo
-    }
     segundaMitad._ult = _ult;
     segundaMitad._long = _long - primeraMitad._long;
 
@@ -67,19 +65,21 @@ void Llista::ordena() {
     primeraMitad.ordena();
     segundaMitad.ordena();
 
-    // Fusionar ambas mitades
+    // Fusionar ambas mitades ordenadas
     _prim = merge(primeraMitad._prim, segundaMitad._prim);
-    
+
     // Actualizar _ult y _long
-    _ult = _prim; 
-    while (_ult && _ult->seg != nullptr) _ult = _ult->seg; // Manejar caso donde _ult sea nulo
+    _ult = _prim;
+    while (_ult && _ult->seg != nullptr) {
+        _ult = _ult->seg;
+    }
     _long = primeraMitad._long + segundaMitad._long;
 }
 
 Llista::node* Llista::merge(node* l1, node* l2) {
-    // Función auxiliar para fusionar dos listas ordenadas
-    node dummy; // Nodo temporal
-    node* tail = &dummy; // Usar el nodo dummy como cabeza
+    // Nodo temporal para crear la lista fusionada
+    node dummy;
+    node* tail = &dummy; // Usar un nodo dummy como cabeza de la lista fusionada
     dummy.seg = nullptr; // Inicializamos el puntero siguiente de dummy
 
     while (l1 != nullptr && l2 != nullptr) {
@@ -95,13 +95,15 @@ Llista::node* Llista::merge(node* l1, node* l2) {
         tail = tail->seg;
     }
 
-    // Adjuntar el resto
-    tail->seg = (l1 != nullptr) ? l1 : l2; 
-    if (tail->seg) { // Actualizar el puntero anterior del resto
-        tail->seg->ant = tail;
+    // Si quedan elementos en alguna de las listas, los adjuntamos al final
+    if (l1 != nullptr) {
+        tail->seg = l1;
+        l1->ant = tail;
+    } else if (l2 != nullptr) {
+        tail->seg = l2;
+        l2->ant = tail;
     }
 
-    return dummy.seg; // Retornar la lista fusionada
+    return dummy.seg; // Retornamos la lista fusionada
 }
-
 

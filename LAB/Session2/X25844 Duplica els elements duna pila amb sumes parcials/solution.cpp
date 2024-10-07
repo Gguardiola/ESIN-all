@@ -60,32 +60,34 @@ void pila<T>::duplica_amb_sumes() {
 
     // Fase 2: Duplicar la pila con las sumas
     p = _cim;  // Reiniciar el puntero a la cima de la pila
-    node* nuevo_cim = nullptr;  // Nueva cima de la pila duplicada
-    node* ultimo_nuevo = nullptr; // Para conectar los nuevos nodos
-
     while (p != nullptr) {
         // Crear el nuevo nodo que contendrá la suma de los elementos restantes
         node* n = new node;
-        n->info = suma_total;  // Sumar el total hasta el momento
-        n->seg = p;  // Conectar el nuevo nodo al nodo original
+        n->info = suma_total;  // Asignar la suma total
 
-        // Actualizar la nueva cima de la pila
-        if (nuevo_cim == nullptr) {
-            nuevo_cim = n;  // Si es el primer nodo, establecerlo como cima
+        // Conectar el nuevo nodo a la pila original
+        n->seg = p;       // El nuevo nodo apunta al nodo original
+        if (p == _cim) {  // Si es la cima original, actualizar la cima
+            _cim = n;
         } else {
-            ultimo_nuevo->seg = n;  // Conectar el nodo nuevo al anterior
+            // Si no es la cima, debemos encontrar el nodo anterior para actualizar el enlace
+            node* aux = _cim;
+            while (aux->seg != p) {
+                aux = aux->seg;
+            }
+            aux->seg = n;  // Actualizamos el nodo anterior para apuntar al nuevo nodo
         }
-        
-        ultimo_nuevo = n;  // Mover el último nuevo nodo
 
-        // Actualizar la suma total restando el valor del nodo actual
+        // Actualizar la suma total restando el valor del nodo original
         suma_total -= p->info;
 
         // Mover al siguiente nodo en la pila original
         p = p->seg;
     }
 
-    // Reasignar la cima de la pila y ajustar el tamaño
-    _cim = nuevo_cim;
+    // Actualizar el tamaño de la pila
     _mida *= 2;  // Duplicar el tamaño de la pila
 }
+
+
+

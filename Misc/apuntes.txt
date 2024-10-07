@@ -1,0 +1,7 @@
+Ejemplos de Costes:
+    Buscar en una pila: O(n)
+    Eliminar en una lista doblemente enlazada: O(1) si tienes el puntero.
+    Ordenar una lista con Merge Sort: O(n log n)
+    Crear una pila desde un vector: O(n)
+    Fusionar dos listas: O(n)
+
