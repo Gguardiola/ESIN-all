@@ -1,0 +1,16 @@
+push 7
+push 5
+push 9
+eject
+pop
+inject 6
+inject 4
+inject 8
+pop
+eject
+pop
+eject
+empty
+size
+mostra
+mostra_invertida

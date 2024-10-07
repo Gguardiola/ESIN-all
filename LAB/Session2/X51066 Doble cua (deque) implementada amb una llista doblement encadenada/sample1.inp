@@ -1,0 +1,13 @@
+mostra
+mostra_invertida
+empty
+size
+push 7
+push 5
+push 9
+empty
+size
+front
+rear
+mostra
+mostra_invertida

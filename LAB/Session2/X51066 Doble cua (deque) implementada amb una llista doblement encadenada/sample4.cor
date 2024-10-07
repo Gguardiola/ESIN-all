@@ -1,0 +1,11 @@
+inject 6: 6
+inject 4: 4
+inject 8: 8
+eject: 8
+eject: 4
+empty: false
+size: 1
+front: 6
+rear: 6
+mostra: [6]
+mostra_invertida: [6]

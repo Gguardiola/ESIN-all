@@ -1,0 +1,16 @@
+push 7: 7
+push 5: 5
+push 9: 9
+eject: 7
+pop: 9
+inject 6: 6
+inject 4: 4
+inject 8: 8
+pop: 5
+eject: 8
+pop: 6
+eject: 4
+empty: true
+size: 0
+mostra: []
+mostra_invertida: []

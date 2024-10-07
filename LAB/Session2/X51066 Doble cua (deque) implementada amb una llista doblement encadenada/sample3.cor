@@ -1,0 +1,11 @@
+push 7: 7
+push 5: 5
+push 9: 9
+pop: 9
+pop: 5
+empty: false
+size: 1
+front: 7
+rear: 7
+mostra: [7]
+mostra_invertida: [7]

@@ -37,34 +37,63 @@ class pila { // pila en memòria dinàmica
     // Aquí va l’especificació dels mètodes privats addicionals
 };
 
-// Aquí va la implementació del mètode públic fusiona i privats addicionals
 template <typename T>
 void pila<T>::fusiona(const pila<T> &p2) {
-
   node *p = _cim;
   node *pant = nullptr;
   node *paux = p2._cim;
-  //
-  // pant 1
-  // 1 2 2 3 4 5
-  // 2 4
-  while(paux != nullptr) {
-    if(paux->info >= p->info) {
-      node *pnew = new node;
-      if(pant == nullptr) _cim = pnew;
-      pant = p;
-      pnew->seg = p->seg;
-      p->seg = pnew;
-      pnew->info = paux->info;
-    }
 
-    paux = paux->seg;
-    p = p->seg;
+  // Si la pila implícita está vacía, simplemente copiar los elementos de p2
+  if (_mida == 0) {
+    for (nat i = 0; i < p2._mida; i++) {
+      node *pnew = new node;
+      if (pant == nullptr) {
+        _cim = pnew;
+      } else {
+        pant->seg = pnew;
+      }
+      pnew->info = paux->info;
+      pant = pnew;
+      if (paux->seg != nullptr) paux = paux->seg;
+    }
+  }
+  
+  // Si p2 está vacía, no hacemos nada
+  else if (p2._mida == 0) {
+    return;
   }
 
-  _mida = _mida + p2._mida;
+  // Si ambas pilas tienen elementos, hacer la fusión
+  else {
+    while (paux != nullptr) {
+      if (p == nullptr || paux->info <= p->info) {
+        // Insertar el nodo de p2 en la pila implícita
+        node *pnew = new node;
+        pnew->info = paux->info;
 
+        if (pant == nullptr) { // Caso especial para insertar al principio
+          pnew->seg = _cim;
+          _cim = pnew;
+        } else {
+          pant->seg = pnew;
+          pnew->seg = p;
+        }
+
+        // Avanzar paux (pila p2)
+        paux = paux->seg;
+        pant = pnew;
+      } else {
+        // Avanzar en la pila implícita
+        pant = p;
+        p = p->seg;
+      }
+    }
+  }
+
+  // Actualizar la longitud de la pila
+  _mida = _mida + p2._mida;
 }
+
 
 // cj_2enters::cj_2enters(const cj_2enters &cj) {
 //   _size = cj._size;

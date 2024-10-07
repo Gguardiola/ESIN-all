@@ -1,0 +1,13 @@
+mostra: []
+mostra_invertida: []
+empty: true
+size: 0
+push 7: 7
+push 5: 5
+push 9: 9
+empty: false
+size: 3
+front: 9
+rear: 7
+mostra: [9 5 7]
+mostra_invertida: [7 5 9]
