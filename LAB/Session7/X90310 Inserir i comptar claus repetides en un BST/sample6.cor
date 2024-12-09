@@ -1,0 +1,15 @@
+17: -5 -5 -5 -5 -3 -3 -3 -2 0 1 4 4 5 5 5 9 9
+quantes -5: 4
+quantes -3: 3
+quantes -2: 1
+quantes 0: 1
+quantes 1: 1
+quantes 2: 0
+quantes 4: 2
+quantes 5: 3
+quantes 9: 2
+----------
+14: 4 5 5 5 5 5 5 5 5 5 5 5 5 5
+quantes 0: 0
+quantes 4: 1
+quantes 5: 13
